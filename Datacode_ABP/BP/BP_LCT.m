@@ -1,28 +1,17 @@
-function BP_LCT(scene)
+function vol = BP_LCT(scene)
 % Confocal Non-Light-of-Sight (C-NLOS) reconstruction procedure for paper
 % titled "Confocal Non-Line-of-Sight Imaging Based on the Light Cone Transform"
 % by Matthew O'Toole, David B. Lindell, and Gordon Wetzstein.
 %
-% Function takes as input an integer between 1 and 9, 
+% 
 % corresponding to the following scenes:
 %   1 - Z
 %   2 - LT
 %   3 - human
 %   4 - T
-
-%
-%
-% The associated .mat data files contain C-NLOS measurements that are
-% pre-rectified (i.e., direct component starts at the first time bin) and
-% cropped.
-
-% Default scene
-if nargin < 1
-    scene = 7;
-end
+%   5 - NCU
 
 % Constants
-
 c              = 3e8;   % Speed of light (meters per second)
 
 % Adjustable parameters
@@ -30,7 +19,7 @@ isbackprop = 1;         % Toggle backprojection
 isdiffuse  = 0;         % Toggle diffuse reflection
 K          = 2;         % Downsample data to (4 ps) * 2^K = 16 ps for K = 2
 snr        = 5;         % SNR value
-z_trim     = 500;       % Set first 600 bins to zero
+z_trim     = 500;       % Set first 500 bins to zero
 width = 0.4;
 
 % Load scene & set visualization parameter
@@ -46,21 +35,16 @@ switch scene
         rect_data = tof_data;
         z_offset = 100;
     case {3}
-        load human.mat
-        bin_resolution = 4e-12;
-        rect_data = tof_data;
-        rect_data = rot90(rect_data);
-        z_offset = 600;
-    case {4}
-        load T.mat
+        load Lambertian_human.mat
         bin_resolution = 5e-12;
         rect_data = tof_data;
         z_offset =100;
-               
-        % Because the scene is diffuse, toggle the diffuse flag and 
-        % adjust SNR value correspondingly.
-        isdiffuse = 1;
-        snr = snr.*1e-1;
+    case {4}
+        load Lambertian_T.mat  %140ps time jitter
+        bin_resolution = 5e-12;
+        rect_data = tof_data;
+        z_offset =100;
+        
 end
 
 N = size(rect_data,1);        % Spatial resolution of data
@@ -142,40 +126,11 @@ vol = vol((1:ind)+z_offset,:,:);
 
 tic_z = tic_z((1:ind)+z_offset);
 
-% View result
-% vol = permute(vol,[2,3,1]);
-load color.mat
-figure('pos',[10 10 900 300]);
+vol = permute(vol,[2,3,1]);
 
-subplot(1,3,1);
-imagesc(tic_x,tic_y,squeeze(max(vol,[],1)));
-title('Front view');
-set(gca,'XTick',linspace(min(tic_x),max(tic_x),3));
-set(gca,'YTick',linspace(min(tic_y),max(tic_y),3));
-xlabel('x (m)');
-ylabel('y (m)');
-colormap(mycolormap);
-axis square;
 
-subplot(1,3,2);
-imagesc(tic_x,tic_z,squeeze(max(vol,[],2)));
-title('Top view');
-set(gca,'XTick',linspace(min(tic_x),max(tic_x),3));
-set(gca,'YTick',linspace(min(tic_z),max(tic_z),3));
-xlabel('x (m)');
-ylabel('z (m)');
-colormap(mycolormap);
-axis square;
 
-subplot(1,3,3);
-imagesc(tic_z,tic_y,squeeze(max(vol,[],3))')
-title('Side view');
-set(gca,'XTick',linspace(min(tic_z),max(tic_z),3));
-set(gca,'YTick',linspace(min(tic_y),max(tic_y),3));
-xlabel('z (m)');
-ylabel('y (m)');
-colormap(mycolormap);
-axis square;
+
 
 
 function psf = definePsf(U,V,slope)

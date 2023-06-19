@@ -4,19 +4,20 @@ function reconstruction_EBP(scene)
 %   3 - human
 %   4 - T
 % Load scene & set visualization parameter
-
+Path = pwd;
 switch scene
     case {1}
         load Z.mat
         tof_data(:,:,1:500) = 0;
         bin_resolution = 5e-12;
-        rect_dataZ = EBP(tof_data,bin_resolution,0.46,0.8,0.05);
-        rect_dataZ = rot90(rect_dataZ,3);
+        vol_EBP_Z = EBP(tof_data,bin_resolution,0.46,0.8,0.05);
+        vol_EBP_Z = rot90(vol_EBP_Z,3);
         load color.mat
-        imagesc(rect_dataZ);
+        imagesc(vol_EBP_Z);
         colormap(mycolormap);
         axis square;  
-        save('C:\Users\DELL\Desktop\Datacode_ABP\EBP\result_data\vol_EBP_Z','rect_dataZ'); 
+        save_path = strcat(Path,'\data_result\vol_EBP_Z');
+        save(save_path,'vol_EBP_Z'); 
     case {2}
         load LT.mat
         bin_resolution = 5e-12;
@@ -26,9 +27,9 @@ switch scene
         rect_dataT = rot90(rect_dataT,3);
         rect_dataL = EBP(tof_data,bin_resolution,0.64,0.6,0.1);
         rect_dataL = rot90(rect_dataL,3);
-        rect_data_LT = rect_dataL+rect_dataT;
-        rect_data_LT = rect_data_LT./max(rect_data_LT(:));
-        
+        vol_EBP_LT = rect_dataL+rect_dataT;
+        vol_EBP_LT = vol_EBP_LT./max(vol_EBP_LT(:));
+        vol_EBP_LT = fliplr(vol_EBP_LT);
         load color.mat
         subplot(1,3,1);
         imagesc(rect_dataT);
@@ -41,23 +42,21 @@ switch scene
         axis square; 
         
         subplot(1,3,3);
-        imagesc(rect_data_LT); 
+        imagesc(vol_EBP_LT); 
         colormap(mycolormap);
         axis square;
-        save('C:\Users\DELL\Desktop\Datacode_ABP\EBP\result_data\vol_EBP_LT','rect_data_LT'); 
+        save_path = strcat(Path,'\data_result\vol_EBP_LT');
+        save(save_path,'vol_EBP_LT');  
     case {3}
-        load human.mat
-        vol_EBP_human = EBP3D;
-        save('C:\Users\DELL\Desktop\Datacode_ABP\EBP\result_data\vol_EBP_human','vol_EBP_human'); 
+        load Lambertian_human.mat
+        vol_EBP_human = EBP3D(tof_data,0.7);
+        save_path = strcat(Path,'\data_result\vol_EBP_human');
+        save(save_path,'vol_EBP_human'); 
     case {4}
-        load T.mat
-        bin_resolution = 5e-12;
-        rect_dataT = EBP(tof_data,bin_resolution,0.5,0.6,0.4);
-        load color.mat
-        imagesc(rect_dataT);
-        colormap(mycolormap);
-        axis square;
-        save('C:\Users\DELL\Desktop\Datacode_ABP\EBP\result_data\vol_EBP_T','rect_dataT'); 
+        load Lambertian_T.mat
+        vol_EBP_T = EBP3D(tof_data,0.7);
+        save_path = strcat(Path,'\data_result\vol_EBP_T');
+        save(save_path,'vol_EBP_T'); 
 end
 
 

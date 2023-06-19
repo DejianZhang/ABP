@@ -3,7 +3,10 @@ t = tiledlayout(1,4);
 load color.mat
 load experiment_NCU.mat
 %%
-%NCU结果
+
+
+%%
+%ABP结果
 nexttile
 imagesc(squeeze(max(vol_ABP_NCU,[],3)));
 axis square;

@@ -122,38 +122,11 @@ tic_z = tic_z((1:ind)+z_offset);
 % View result
 % vol = permute(vol,[2,3,1]);
 load color.mat
-figure('pos',[10 10 900 300]);
 
-subplot(1,3,1);
-imagesc(tic_x,tic_y,squeeze(max(vol,[],1)));
-title('Front view');
-set(gca,'XTick',linspace(min(tic_x),max(tic_x),3));
-set(gca,'YTick',linspace(min(tic_y),max(tic_y),3));
-xlabel('x (m)');
-ylabel('y (m)');
-colormap(mycolormap);
-axis square;
 
-subplot(1,3,2);
-imagesc(tic_x,tic_z,squeeze(max(vol,[],2)));
-title('Top view');
-set(gca,'XTick',linspace(min(tic_x),max(tic_x),3));
-set(gca,'YTick',linspace(min(tic_z),max(tic_z),3));
-xlabel('x (m)');
-ylabel('z (m)');
-colormap(mycolormap);
-axis square;
 
-subplot(1,3,3);
-imagesc(tic_z,tic_y,squeeze(max(vol,[],3))')
-title('Side view');
-set(gca,'XTick',linspace(min(tic_z),max(tic_z),3));
-set(gca,'YTick',linspace(min(tic_y),max(tic_y),3));
-xlabel('z (m)');
-ylabel('y (m)');
-colormap(mycolormap);
-axis square;
-vol = squeeze(max(vol,[],1));
+ vol = permute(vol,[2 3 1]);
+
 
 
 
