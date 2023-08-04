@@ -1,10 +1,10 @@
-function vol = EBP3D(tof_data,alpha)
+function vol = EBP3D(tof_data,alpha,gama)
 vol_BP = BP_LCT(tof_data,5e-12);
 
 tof_data_delta =tof3D(vol_BP,25:1:291,267);
 tof_data_delta = rot90(tof_data_delta);
 
-tof_data_delta = tof_data_delta - tof_data ;
+tof_data_delta = tof_data_delta/gama - tof_data ;
 
 vol_error = BP_LCT(tof_data_delta,5e-12);
 
