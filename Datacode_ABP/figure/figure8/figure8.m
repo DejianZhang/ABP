@@ -1,98 +1,99 @@
 t = tiledlayout(2,6);
-%%
 load color.mat
-%%
-load experimentZ_result.mat
-ground_turth = z;
-
-
-nexttile%真实物体场景
-imshow(ground_turth);
+load('vol_diffuse_statue.mat')
+nexttile
+imshow(ground_truth);
 axis square;
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
 title('Ground truth')
 
-%反投影结果
 nexttile
-imagesc(vol_BP_Z);
-axis square;
+imagesc(squeeze(max(BP,[],3)));
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
-title('BP')
-
-nexttile%FBP结果
-imagesc(vol_FBP_Z);
+title('BP');
+colormap(mycolormap);
 axis square;
-set(gca,'xtick',[],'xticklabel',[])
-set(gca,'ytick',[],'yticklabel',[])
-title('FBP')
 
-nexttile%EBP结果
-imagesc(vol_EBP_Z);
-axis square;
-set(gca,'xtick',[],'xticklabel',[])
-set(gca,'ytick',[],'yticklabel',[])
-title('EBP')
-
-nexttile%ABP结果
-imagesc(vol_ABP_Z);
-axis square;
-set(gca,'xtick',[],'xticklabel',[])
-set(gca,'ytick',[],'yticklabel',[])
-title('ABP')
-
-nexttile%FK结果
-imagesc(vol_FK_Z);
-axis square;
-set(gca,'xtick',[],'xticklabel',[])
-set(gca,'ytick',[],'yticklabel',[])
-title('FK')
-%%
-load experimentLT_result.mat
-
-
-
-nexttile%真实物体场景
-imshow(T_L);
-axis square;
-set(gca,'xtick',[],'xticklabel',[])
-set(gca,'ytick',[],'yticklabel',[])
-
-%反投影结果
 nexttile
-imagesc(vol_BP_LT);
+imagesc(squeeze(max(fbp,[],3)));
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
+title('FBP');
+colormap(mycolormap);
+axis square;
+
+
+nexttile
+imagesc(squeeze(max(EBP,[],3)));
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
+title('EBP');
+colormap(mycolormap);
+axis square;
+
+nexttile
+imagesc(squeeze(max(ABP,[],3)));
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
+title('ABP');
+colormap(mycolormap);
+axis square;
+
+nexttile
+imagesc(squeeze(max(fk,[],3)));
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
+title('f-k');
+colormap(mycolormap);
+axis square;
+
+
+load vol_glossy_dragon
+nexttile
+load color.mat
+imshow(ground_truth);
 axis square;
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
 
 
-nexttile%FBP结果
-imagesc(vol_FBP_LT);
-axis square;
+nexttile
+imagesc(squeeze(max(BP,[],3)));
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
-
-
-nexttile%EBP结果
-imagesc(vol_EBP_LT);
+colormap(mycolormap);
 axis square;
+
+nexttile
+imagesc(squeeze(max(fbp,[],3)));
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
-
-nexttile%ABP结果
-imagesc(vol_ABP_LT);
+colormap(mycolormap);
 axis square;
+
+
+nexttile
+imagesc(squeeze(max(EBP,[],3)));
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
-
-
-nexttile%FK结果
-imagesc(vol_FK_LT);
+colormap(mycolormap);
 axis square;
+
+nexttile
+imagesc(squeeze(max(ABP,[],3)));
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
+colormap(mycolormap);
+axis square;
 
+nexttile
+imagesc(squeeze(max(fk,[],3)));
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
+colormap(mycolormap);
+axis square;
 %%
 colormap(mycolormap);
 t.TileSpacing = 'compact';
