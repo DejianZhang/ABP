@@ -11,8 +11,6 @@ switch scene
         vol_BP = vol_BP./max(vol_BP(:));
         vol_FBP = filterLaplacian(vol_BP);
         vol_FBP = max(vol_FBP./max(vol_FBP(:)),0); 
-        vol_FBP(:,:,1) = 0;
-        vol_FBP(:,:,end) = 0;
         sanshitu_rotate(vol_FBP);
         vol_FBP_Z = vol_FBP;
         vol_FBP_Z = squeeze(max(vol_FBP_Z,[],3));
@@ -23,8 +21,6 @@ switch scene
         vol_BP = vol_BP./max(vol_BP(:));
         vol_FBP = filterLaplacian(vol_BP);
         vol_FBP = max(vol_FBP./max(vol_FBP(:)),0);
-        vol_FBP(:,:,1) = 0;
-        vol_FBP(:,:,end) = 0;
         sanshitu_rotate(vol_FBP);
         vol_FBP_LT = vol_FBP;
         vol_FBP_LT = squeeze(max(vol_FBP_LT,[],3));

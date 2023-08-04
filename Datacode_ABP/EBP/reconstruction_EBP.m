@@ -49,12 +49,12 @@ switch scene
         save(save_path,'vol_EBP_LT');  
     case {3}
         load Lambertian_human.mat
-        vol_EBP_human = EBP3D(tof_data,0.7);
+        vol_EBP_human = EBP3D(tof_data,0.7,250);
         save_path = strcat(Path,'\data_result\vol_EBP_human');
         save(save_path,'vol_EBP_human'); 
     case {4}
         load Lambertian_T.mat
-        vol_EBP_T = EBP3D(tof_data,0.7);
+        vol_EBP_T = EBP3D(tof_data,0.7,100);
         save_path = strcat(Path,'\data_result\vol_EBP_T');
         save(save_path,'vol_EBP_T'); 
 end

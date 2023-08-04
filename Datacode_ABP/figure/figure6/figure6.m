@@ -1,4 +1,4 @@
-t = tiledlayout(2,5);
+t = tiledlayout(2,6);
 %%
 load color.mat
 %%
@@ -42,7 +42,12 @@ set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
 title('ABP')
 
-
+nexttile%FK结果
+imagesc(vol_FK_Z);
+axis square;
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
+title('FK')
 %%
 load experimentLT_result.mat
 
@@ -75,7 +80,6 @@ axis square;
 set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
 
-
 nexttile%ABP结果
 imagesc(vol_ABP_LT);
 axis square;
@@ -83,6 +87,11 @@ set(gca,'xtick',[],'xticklabel',[])
 set(gca,'ytick',[],'yticklabel',[])
 
 
+nexttile%FK结果
+imagesc(vol_FK_LT);
+axis square;
+set(gca,'xtick',[],'xticklabel',[])
+set(gca,'ytick',[],'yticklabel',[])
 
 %%
 colormap(mycolormap);

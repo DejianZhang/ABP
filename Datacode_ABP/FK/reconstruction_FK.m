@@ -3,7 +3,6 @@ function reconstruction_FK(scene)
 %   2 - LT
 %   3 - human
 %   4 - T
-%   5 - U
 % Load scene & set visualization parameter
 Path = pwd;
 switch scene

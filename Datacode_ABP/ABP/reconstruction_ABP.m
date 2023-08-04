@@ -4,7 +4,6 @@ function reconstruction_ABP(scene)
 %   3 - human
 %   4 - T
 %   5 - NCU
-%   6 - nonconfocal U
 % Load scene & set visualization parameter
 Path = pwd;
 switch scene

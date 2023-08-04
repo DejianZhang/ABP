@@ -6,7 +6,7 @@ ground_turth_U;
 load simulation_Lamber_U
 vol_BP = ncBP(tof_data,[301:350],50,32,32);
 vol_FBP = filterLaplacian(vol_BP);  
-vol_EBP = EBP(tof_data,vol_BP,0.7);
+vol_EBP = EBP(tof_data,vol_BP,1.1);
 vol_ABP = ABP(vol_BP);
 % View result
 load color.mat
