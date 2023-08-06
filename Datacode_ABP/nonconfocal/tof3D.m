@@ -1,7 +1,7 @@
 function tof_data =tof3D(ground_turth,Z,Z0)
-ground_turth = ground_turth./max(ground_turth(:));
+ground_turth = 10*ground_turth./max(ground_turth(:));
 ground_turth0 = round(ground_turth);
-ground_turth(ground_turth>0)=1;
+
 X0=64; Y0=64;   
 
 bin_resolution = 5e-12;
@@ -19,10 +19,6 @@ for x=1:64
         distance_L = (((X_voxel.*(X-x)).^2+(Y_voxel.*(Y-y)).^2+(Z_voxel.*Z).^2).^0.5);
         distance_P = (((X_voxel.*(X-32)).^2+(Y_voxel.*(Y-32)).^2+(Z_voxel.*Z).^2).^0.5);
         distance = distance_L + distance_P;
-        ture_distance = ground_turth;
-        ture_distance(ture_distance<0.5)=0; 
-        ture_distance(ture_distance>0.5)=1;
-        distance=distance.*ture_distance;
         h = distance(:);
         ground_turth0 = ground_turth0(:);
         h = repelem(h,ground_turth0);

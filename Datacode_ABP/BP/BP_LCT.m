@@ -9,7 +9,6 @@ function vol = BP_LCT(scene)
 %   2 - LT
 %   3 - human
 %   4 - T
-%   5 - NCU
 
 % Constants
 c              = 3e8;   % Speed of light (meters per second)
@@ -18,7 +17,7 @@ c              = 3e8;   % Speed of light (meters per second)
 isbackprop = 1;         % Toggle backprojection
 isdiffuse  = 0;         % Toggle diffuse reflection
 K          = 2;         % Downsample data to (4 ps) * 2^K = 16 ps for K = 2
-snr        = 5;         % SNR value
+snr        = 0.8;         % SNR value
 z_trim     = 500;       % Set first 500 bins to zero
 width = 0.4;
 
@@ -43,8 +42,7 @@ switch scene
         load Lambertian_T.mat  %140ps time jitter
         bin_resolution = 5e-12;
         rect_data = tof_data;
-        z_offset =100;
-        
+        z_offset =100;       
 end
 
 N = size(rect_data,1);        % Spatial resolution of data
